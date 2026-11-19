@@ -1,0 +1,39 @@
+{
+    "_comment": "Internal runner egg managed by the Breefer Modpack Installer extension. Do not assign servers to it manually.",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-11-19T00:00:00+00:00",
+    "name": "Breefer Modpack Runner",
+    "author": "modpack-runner@breefer.internal",
+    "description": "Internal egg used by Breefer Modpack Installer. Servers are switched to it temporarily while a modpack installs and restored automatically afterwards.",
+    "features": null,
+    "docker_images": {
+        "Debian": "ghcr.io/pterodactyl/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": "echo \"This server is still installing a modpack (Breefer). If this persists, open the Modpacks page and press Restore.\"",
+    "config": {
+        "files": "{}",
+        "startup": "{\"done\": \"Breefer\"}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "@file:install.sh",
+            "container": "debian:bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {"name": "Provider", "description": "", "env_variable": "MODPACK_PROVIDER", "default_value": "modrinth", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "required|string|in:modrinth,curseforge,ftb", "field_type": "text"},
+        {"name": "Modpack ID", "description": "", "env_variable": "MODPACK_ID", "default_value": "", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "nullable|string", "field_type": "text"},
+        {"name": "Version ID", "description": "", "env_variable": "MODPACK_VERSION_ID", "default_value": "", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "nullable|string", "field_type": "text"},
+        {"name": "Delete server files", "description": "", "env_variable": "DELETE_SERVER_FILES", "default_value": "false", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "required|string|in:true,false", "field_type": "text"},
+        {"name": "Accept EULA", "description": "", "env_variable": "ACCEPT_EULA", "default_value": "false", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "required|string|in:true,false", "field_type": "text"},
+        {"name": "CurseForge API key", "description": "", "env_variable": "CURSEFORGE_API_KEY", "default_value": "", "user_viewable": false, "user_editable": false, "is_secret": true, "rules": "nullable|string", "field_type": "text"},
+        {"name": "MCJars API", "description": "", "env_variable": "MCJARS_URL", "default_value": "https://versions.mcjars.app", "user_viewable": false, "user_editable": false, "is_secret": false, "rules": "nullable|string", "field_type": "text"}
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "id": "breefer-modpack-installer",
+    "name": "Breefer Modpack Installer",
+    "version": "1.2.0",
+    "description": "Browse and install Modrinth, CurseForge and Feed The Beast modpacks with the right loader in one click.",
+    "author": "Shine Akhanda",
+    "website": null,
+    "update_url": null,
+    "api_version": "RCYL_v26",
+    "target_version": "canary",
+    "backend": {
+        "routes": {
+            "client": {
+                "file": "backend/routes/client.php",
+                "middleware": []
+            },
+            "admin": {
+                "file": "backend/routes/admin.php",
+                "middleware": []
+            }
+        },
+        "commands": [],
+        "schedules": [],
+        "providers": [],
+        "boot_hooks": ["backend/hooks/boot.php"]
+    },
+    "frontend": {
+        "build_strategy": "source",
+        "entry_points": [],
+        "slots": [],
+        "routes": {
+            "dashboardRouter": [],
+            "serverRouter": [
+                {
+                    "path": "modpacks",
+                    "label": "Modpacks",
+                    "module": "frontend/src/ModpackPage.tsx",
+                    "export": "default",
+                    "permission": "settings.reinstall",
+                    "icon": "icon:RiCube"
+                }
+            ]
+        },
+        "source": {
+            "entry": "frontend/src/ModpackPage.tsx",
+            "entries": ["frontend/src/breefer-ui.tsx"]
+        }
+    },
+    "assets": [],
+    "permissions": [],
+    "feature_flags": []
+}
